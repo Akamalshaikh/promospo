@@ -1,8 +1,12 @@
 import os
 import logging
 import json
+from dotenv import load_dotenv
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, ContextTypes, filters, ConversationHandler
+
+# Load environment variables
+load_dotenv()
 
 # Configure logging
 logging.basicConfig(
@@ -16,7 +20,7 @@ WAITING_FOR_JOIN, MAIN_MENU = range(2)
 DATA_FILE = 'user_data.json'
 CHANNELS_FILE = 'channels.json'
 SPOTIFY_CHANNEL_LINK = "https://t.me/+g-xrzWHWZcUzODA1"
-ADMIN_ID = 6994528708
+ADMIN_ID = int(os.getenv("ADMIN_ID", "6994528708"))
 
 # Emojis
 FIRE_EMOJI = "🔥"
@@ -480,7 +484,7 @@ async def handle_channel_delete(update: Update, context: ContextTypes.DEFAULT_TY
 
 def main():
     # Set up application with the bot token
-    token = "7440431620:AAHBjql-Cu73vsKC33ruNgy5TrVbrmCvHro"
+    token = os.getenv("BOT_TOKEN", "7440431620:AAHBjql-Cu73vsKC33ruNgy5TrVbrmCvHro")
     application = Application.builder().token(token).build()
     
     # Create conversation handler
@@ -512,4 +516,11 @@ def main():
     application.run_polling()
 
 if __name__ == '__main__':
+    # Create data files if they don't exist
+    if not os.path.exists(DATA_FILE):
+        save_data({'users': {}})
+    
+    if not os.path.exists(CHANNELS_FILE):
+        save_channels({'channels': [], 'folders': {}})
+        
     main()

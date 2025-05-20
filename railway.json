@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "buildpacks": [
+    {
+      "name": "nixpacks",
+      "options": {
+        "nixpacksConfigFile": "./nixpacks.toml"
+      }
+    }
+  ]
+}

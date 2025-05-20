@@ -1,0 +1,12 @@
+{
+  "name": "telegram-referral-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot with refer and earn functionality",
+  "main": "bot.py",
+  "engines": {
+    "python": "3.9"
+  },
+  "scripts": {
+    "start": "python bot.py"
+  }
+}
